@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-3">Employee List</h3>
+
+<form class="d-flex mb-3">
+  <input class="form-control me-2" type="search" name="q" placeholder="Search employee" value="{{ search }}">
+  <button class="btn btn-outline-dark" type="submit">Search</button>
+</form>
+
+<a href="{% url 'add_employee' %}" class="btn btn-dark mb-3">Add Employee</a>
+<a href="{% url 'export_csv' %}" class="btn btn-success mb-3 float-end">Export CSV</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th><th>Email</th><th>Department</th><th>Role</th><th>Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for emp in employees %}
+    <tr>
+      <td>{{ emp.name }}</td>
+      <td>{{ emp.email }}</td>
+      <td>{{ emp.department.name }}</td>
+      <td>{{ emp.role }}</td>
+      <td>{{ emp.salary }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="text-center text-muted">No employees found</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
